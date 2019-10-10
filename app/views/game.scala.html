@@ -1,0 +1,18 @@
+@(board: Board)
+@main("Welcome to Game") {
+    <h1>its @board.getTurn Turn!</h1>
+    <table align="center">
+    @for(i <- 0 until 3) {
+        <tr>
+        @for(j <- 0 until 3) {
+            <td>
+                <a href="@routes.GameController.playMade(i,j)">@board.getStringByIndex(i, j)</a>
+            </td>
+        }
+        </tr>
+    }
+    </table>
+    <a class="button" href="/logout">Log out</a>
+    <a class="button" href="/newGame">Clear</a>
+    <a class="button">Help Me</a>
+}

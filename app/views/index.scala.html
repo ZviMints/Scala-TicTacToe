@@ -1,20 +1,28 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
+@(title: String)
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
-
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @welcome(message, style = "scala")
-
+@main(title) {
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Tic_tac_toe.svg/2000px-Tic_tac_toe.svg.png" width="150px" height="150px"/>
+    <h2>@title</h2>
+    <div id="container">
+        <div class="login">
+            <h1>Login</h1>
+            <form method="post" action="@routes.HomeController.validateLogin()">
+                Username: <input type="text" name="username" placeholder="username"/>
+                <br/>
+                Password: <input type="password" name="password" placeholder ="password"/>
+                <br/>
+                <input class="button" type="submit" value="Start Playing!" />
+            </form>
+        </div>
+        <div class="create">
+            <h1>Create User</h1>
+            <form method="post" action="@routes.HomeController.CreateUser()">
+                Username: <input type="text" name="username" placeholder="username"/>
+                <br/>
+                Password: <input type="password" name="password" placeholder="password"/>
+                <br/>
+                <button style="margin: 10px" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
 }

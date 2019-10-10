@@ -1,16 +1,16 @@
 
 # Routes
 # This file defines all application routes (Higher priority routes first)
-# ~~~~
+GET         /assets/*file         controllers.Assets.versioned(path="/public", file: Asset)
+GET         /                     controllers.HomeController.index
+GET         /game                 controllers.GameController.index
+GET         /play/:i/:j                 controllers.GameController.playMade(i: Int, j:Int)
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
++ nocsrf
+POST        /validateLogin        controllers.HomeController.validateLogin
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
++ nocsrf
+POST        /CreateUser           controllers.HomeController.CreateUser
 
-      
+GET         /logout               controllers.HomeController.logout
+GET         /newGame               controllers.GameController.newGame
