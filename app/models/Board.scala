@@ -12,7 +12,7 @@ object Player {
     case O => X
   }
 }
-case class Board(list: List[Player] = List.fill(9)(None), playerTurn: Player = X) {
+case class Board(list: List[Player] = List.fill(9)(None), playerTurn: Player = X, steps:Int = 0) {
 
   def makeStep(i: Int, j: Int): Board = {
     val idx = i * 3  + j
@@ -20,7 +20,7 @@ case class Board(list: List[Player] = List.fill(9)(None), playerTurn: Player = X
     else {
       val (first,second) = list.splitAt(idx)
       second match {
-        case None :: tail => Board(first ::: playerTurn :: tail,Player.opposite(playerTurn))
+        case None :: tail => Board(first ::: playerTurn :: tail,Player.opposite(playerTurn),steps+1)
         case _ => this // Invalid play
       }
     }

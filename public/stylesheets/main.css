@@ -101,6 +101,14 @@ td img {
     height: auto;
     overflow: hidden;
 }
+#steps {
+    text-align: center;
+    background: #dedede;
+    -webkit-border-radius: 4px;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px auto 5px;
+}
 
 #container .login {
     float: right;

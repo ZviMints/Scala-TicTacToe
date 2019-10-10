@@ -23,8 +23,14 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
       usernameOption.map { username =>
         val game: Board = Users.getState(username)
         val newGame: Board = game.makeStep(i,j)
-        Users.setState(username,newGame)
-        Ok(views.html.game(newGame))
+        val state = Brain.calculate(newGame)
+        state match {
+          case Winner(p) => Ok(views.html.cong(Player.opposite(newGame.playerTurn).toString,newGame))
+          case Draw => Ok(views.html.draw(newGame))
+          case inProgress =>
+            Users.setState(username,newGame)
+            Ok(views.html.game(newGame))
+        }
       }.getOrElse(Ok(views.html.index("No body info, Try again.")))
   }
 
