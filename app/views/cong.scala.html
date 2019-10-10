@@ -1,11 +1,10 @@
 @(str: String, board: Board)
 @main("Welcome to Game") {
     <h1>
-        Congratulations
+        Congratulations @str!
     </h1>
-     <h1 style="color: red;">@str!</h1>
-
     @renderGame(board)
-    <a class="button" href="/logout">Log out</a>
+            <a class="button" href="/db">View Database</a>
+            <a class="button" href="/logout">Log out</a>
             <a class="button" href="/newGame">New Game</a>
 }

@@ -4,7 +4,7 @@
 GET         /assets/*file         controllers.Assets.versioned(path="/public", file: Asset)
 GET         /                     controllers.HomeController.index
 GET         /game                 controllers.GameController.index
-GET         /play/:i/:j                 controllers.GameController.playMade(i: Int, j:Int)
+GET         /play/:i/:j           controllers.GameController.playMade(i: Int, j:Int)
 
 + nocsrf
 POST        /validateLogin        controllers.HomeController.validateLogin
@@ -13,4 +13,5 @@ POST        /validateLogin        controllers.HomeController.validateLogin
 POST        /CreateUser           controllers.HomeController.CreateUser
 
 GET         /logout               controllers.HomeController.logout
-GET         /newGame               controllers.GameController.newGame
+GET         /newGame              controllers.GameController.newGame
+GET         /db                   controllers.HomeController.scores

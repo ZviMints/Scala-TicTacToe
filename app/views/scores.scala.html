@@ -1,0 +1,20 @@
+@main("Welcome to Game") {
+    <h1>
+        Scores Table
+    </h1>
+    <table align="center">
+        <tr style="background-color: #fcdac6"><td>Username</td><td>Least Steps</td><td>Winner</td></tr>
+    @for(i <- 0 until 3) {
+        <tr>
+        @for(i <- 0 until 3) {
+            <td>
+                Null
+            </td>
+        }
+        </tr>
+    }
+    </table>
+
+            <a class="button" href="/logout">Log out</a>
+            <a class="button" href="/newGame">Start Game</a>
+}

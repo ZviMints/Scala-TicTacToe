@@ -13,6 +13,10 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
     val usernameOption: Option[String] = request.session.get("username")
     usernameOption.map { username =>
       val game : Board = Users.getState(username)
+      val state = Brain.calculate(game)
+      if(state == Winner(X) || state == Winner(O))
+        Ok(views.html.cong(Player.opposite(game.playerTurn).toString,game))
+      else
       Ok(views.html.game(game))
     }.getOrElse(Ok(views.html.index("No body info, Try again.")))
   }
@@ -24,12 +28,11 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
         val game: Board = Users.getState(username)
         val newGame: Board = game.makeStep(i,j)
         val state = Brain.calculate(newGame)
+        Users.setState(username,newGame)
         state match {
           case Winner(p) => Ok(views.html.cong(Player.opposite(newGame.playerTurn).toString,newGame))
           case Draw => Ok(views.html.draw(newGame))
-          case inProgress =>
-            Users.setState(username,newGame)
-            Ok(views.html.game(newGame))
+          case inProgress => Ok(views.html.game(newGame))
         }
       }.getOrElse(Ok(views.html.index("No body info, Try again.")))
   }

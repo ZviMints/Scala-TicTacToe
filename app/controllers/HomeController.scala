@@ -18,11 +18,11 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
 
   def validateLogin = Action {
     request =>
-      val values: Option[Map[String,Seq[String]]] = request.body.asFormUrlEncoded
+      val values: Option[Map[String, Seq[String]]] = request.body.asFormUrlEncoded
       values.map { value =>
         val username = value("username").head
         val password = value("password").head
-        if(Users.validate(username,password))
+        if (Users.validate(username, password))
           Redirect(routes.GameController.index()).withSession("username" -> username) // With Routes
         else
           Ok(views.html.index(s"Cant Validate user " +
@@ -32,15 +32,19 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
 
   def CreateUser = Action {
     request =>
-      val values: Option[Map[String,Seq[String]]] = request.body.asFormUrlEncoded
+      val values: Option[Map[String, Seq[String]]] = request.body.asFormUrlEncoded
       values.map { value =>
         val username = value("username").head
         val password = value("password").head
-        if(Users.create(username,password)) {
+        if (Users.create(username, password)) {
           Ok(views.html.index("User Created Successfully."))
         }
         else
           Ok(views.html.index("User Already Created"))
       }.getOrElse(Ok(views.html.index("No body info, Try again.")))
+  }
+
+  def scores = Action {
+    Ok(views.html.scores())
   }
 }

@@ -1,12 +1,12 @@
 @(board: Board)
 <table align="center" style="background-color: #8c6e6a">
-@for(i <- 0 until 3) {
-    <tr>
-    @for(j <- 0 until 3) {
-        <td>
+    @for(i <- 0 until 3) {
+        <tr>
+        @for(j <- 0 until 3) {
+            <td>
             @board.getStringByIndex(i, j)
-        </td>
+            </td>
+        }
+        </tr>
     }
-    </tr>
-}
 </table>
