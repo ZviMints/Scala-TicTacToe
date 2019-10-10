@@ -4,10 +4,14 @@ import javax.inject._
 import play.api.mvc._
 import models.Users
 import play.api.libs.json._
+import play.modules.reactivemongo._
 
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-
+class HomeController @Inject()(cc: ControllerComponents
+  //, val reactiveMongoApi: ReactiveMongoApi)
+                              ) extends AbstractController(cc)
+  // with MongoController with ReactiveMongoComponents
+{
   def index = Action {
     Ok(views.html.index("Welcome"))
   }
