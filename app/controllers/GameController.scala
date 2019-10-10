@@ -26,14 +26,26 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
       val usernameOption: Option[String] = request.session.get("username")
       usernameOption.map { username =>
         val game: Board = Users.getState(username)
-        val newGame: Board = game.makeStep(i,j)
-        val state = Brain.calculate(newGame)
-        Users.setState(username,newGame)
-        state match {
-          case Winner(p) => Ok(views.html.cong(Player.opposite(newGame.playerTurn).toString,newGame))
-          case Draw => Ok(views.html.draw(newGame))
-          case inProgress => Ok(views.html.game(newGame))
+        /** This is Safety Check for URL */
+        val SafetyCheck = Brain.calculate(game)
+        val continue = SafetyCheck match {
+          case Winner(p) => false
+          case Draw => false
+          case _ => true
         }
+        /** ---------------------------- */
+        if(continue) {
+          val newGame: Board = game.makeStep(i, j)
+          val state = Brain.calculate(newGame)
+          Users.setState(username, newGame)
+          state match {
+            case Winner(p) => Ok(views.html.cong(Player.opposite(newGame.playerTurn).toString, newGame))
+            case Draw => Ok(views.html.draw(newGame))
+            case inProgress => Ok(views.html.game(newGame))
+          }
+        }
+        else
+          BadRequest("Its Already Draw or Winning State!")
       }.getOrElse(Ok(views.html.index("No body info, Try again.")))
   }
 
