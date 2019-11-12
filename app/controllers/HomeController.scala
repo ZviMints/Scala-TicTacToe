@@ -4,7 +4,6 @@ import javax.inject._
 import play.api.mvc._
 import models.Users
 import play.api.libs.json._
-import play.modules.reactivemongo._
 
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents
