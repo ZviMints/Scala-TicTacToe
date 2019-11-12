@@ -4,13 +4,26 @@ import javax.inject._
 import play.api.mvc._
 import models.Users
 import play.api.libs.json._
+import play.api.libs.ws.{WSClient, WSResponse}
+
+import scala.concurrent._
+import ExecutionContext.Implicits.global
 
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents
-  //, val reactiveMongoApi: ReactiveMongoApi)
-                              ) extends AbstractController(cc)
-  // with MongoController with ReactiveMongoComponents
+class HomeController @Inject()(cc: ControllerComponents, ws: WSClient) extends AbstractController(cc)
 {
+
+  def sendAPICall = Action.async { implicit request =>
+    val ans = ws.url("http://www.google.com").get()
+      ans map { response =>
+        val statusText: String = response.body
+        Ok(s"Got a response $statusText")
+    }
+  }
+
+  def reciveAPICall = Action { Ok("Message Received") }
+
+
   def index = Action {
     Ok(views.html.index("Welcome"))
   }

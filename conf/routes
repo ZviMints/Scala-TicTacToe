@@ -15,3 +15,7 @@ POST        /CreateUser           controllers.HomeController.CreateUser
 GET         /logout               controllers.HomeController.logout
 GET         /newGame              controllers.GameController.newGame
 GET         /db                   controllers.HomeController.scores
+
+GET         /reciveAPICall        controllers.HomeController.reciveAPICall
+GET         /sendAPICall          controllers.HomeController.sendAPICall
+

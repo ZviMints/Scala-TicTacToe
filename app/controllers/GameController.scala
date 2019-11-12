@@ -5,6 +5,10 @@ import play.api.mvc._
 import models.Users
 import play.api.libs.json._
 import models._
+import javax.inject.Inject
+import scala.concurrent.Future
+import scala.concurrent.duration._
+
 
 @Singleton
 class GameController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
