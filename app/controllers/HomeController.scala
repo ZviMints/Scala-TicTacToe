@@ -10,19 +10,26 @@ import scala.concurrent._
 import ExecutionContext.Implicits.global
 
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents, ws: WSClient) extends AbstractController(cc)
-{
+class HomeController @Inject()(cc: ControllerComponents, ws: WSClient) extends AbstractController(cc) {
 
   def sendAPICall = Action.async { implicit request =>
-    val ans = ws.url("http://www.google.com").get()
-      ans map { response =>
-        val statusText: String = response.body
-        Ok(s"Got a response $statusText")
+    var (username, password) = ("zvi", 123)
+    val ans = ws.url("http://localhost:9000/reciveAPICall").post(
+      Json.obj("msg" -> "very important message")
+    )
+    ans map { response =>
+      val statusText: String = response.body
+      Ok(s"Got a response: \n $statusText")
     }
   }
 
-  def reciveAPICall = Action { Ok("Message Received") }
-
+  def reciveAPICall = Action {
+    request =>
+      request.body.asJson.map { json =>
+        val msg = (json \ "msg").as[String]
+        Ok(msg)
+      }.getOrElse(Ok("Expecting application/json request body"))
+  }
 
   def index = Action {
     Ok(views.html.index("Welcome"))
